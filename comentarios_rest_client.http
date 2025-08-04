@@ -1,0 +1,60 @@
+### Crear un nuevo comentario
+POST http://localhost:8000/comentarios/
+Content-Type: application/json
+
+{
+  "texto": "Excelente servicio",
+  "usuario_email": "usuario@example.com",
+  "calificacion": 5
+}
+
+### Crear producto
+
+POST http://localhost:8000/productos/crear
+Content-Type: application/json
+
+{
+  "nombre": "Chocolate",
+  "descripcion": "Chocolate marca pollito.",
+  "precio": 2.5,
+  "categoria": "DULCE"
+}
+
+### Obtener todos los productos
+GET http://localhost:8000/productos/
+
+### Obtener productos por ID
+GET http://localhost:8000/productos/2
+
+### Actualizar un producto
+PUT http://localhost:8000/productos/update/1
+Content-Type: application/json
+
+{
+  "nombre": "Lecherita",
+  "descripcion": "Mucha azucar tiene esto",
+  "precio": 10.5,
+  "categoria": "DULCE"
+}
+
+### Eliminar un producto (si existe esta funcionalidad)
+DELETE http://localhost:8000/productos/delete/2
+
+### Obtener todos los comentarios
+GET http://localhost:8000/comentarios/
+
+### Obtener comentario por ID
+GET http://localhost:8000/comentarios/1
+
+### Actualizar un comentario
+PUT http://localhost:8000/comentarios/1
+Content-Type: application/json
+
+{
+  "texto": "Servicio actualizado",
+  "usuario_email": "usuario@example.com",
+  "calificacion": 4
+}
+
+### Eliminar un comentario (si existe esta funcionalidad)
+DELETE http://localhost:8000/comentarios/1
