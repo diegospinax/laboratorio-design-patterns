@@ -9,7 +9,7 @@ const ENDPOINTS = {
 const ENDPOINTSPRODUCTO = {
     create: "/productos/crear",
     read_all: "/productos",
-    read_one: "/productos/{id}",
-    update: "/productos/{id}",
-    delete: "/productos/{id}"
+    read_one: "/productos/{id}", 
+    update: "/productos/update/{id}",
+    delete: "/productos/delete/{id}"
 }

@@ -109,14 +109,14 @@ async function eliminarComentario() {
   });
 
 async function buscarProducto() {
-  const id = document.getElementById("idBuscarP").value;
-  const res = await fetch(API_BASE + ENDPOINTSPRODUCTO.read_one.replace("{id}", id));
+  const idP = document.getElementById("idBuscarP").value;
+  const res = await fetch(API_BASE + ENDPOINTSPRODUCTO.read_one.replace("{id}", idP));
   if (res.ok) {
     const data = await res.json();
-    document.getElementById("nombre").value = data.nombre;
-    document.getElementById("descripcion").value = data.descripcion;
-    document.getElementById("precio").value = data.precio;
-    document.getElementById("categoria").value = data.categoria;
+    document.getElementById("nombreAccion").value = data.nombre;
+    document.getElementById("descripcionAccion").value = data.descripcion;
+    document.getElementById("precioAccion").value = data.precio;
+    document.getElementById("categoriaAccion").value = data.categoria;
     mostrarSeccion("accionesPro");
     alert("Producto con posibilidad de editar");
   } else {
@@ -125,27 +125,27 @@ async function buscarProducto() {
 }
 
   async function actualizarProducto() {
-  const id = document.getElementById("idBuscarP").value;
+  const idPros = document.getElementById("idBuscarP").value;
   const data = {
-      nombre: document.getElementById("nombre").value,
-      descripcion: document.getElementById("descripcion").value,
-      precio: Number(document.getElementById("precio").value),
-      categoria: document.getElementById("categoria").value,
+      nombre: document.getElementById("nombreAccion").value,
+      descripcion: document.getElementById("descripcionAccion").value,
+      precio: Number(document.getElementById("precioAccion").value),
+      categoria: document.getElementById("categoriaAccion").value,
   };
-  const res = await fetch(API_BASE + ENDPOINTSPRODUCTO.update.replace("{id}", id), {
+  const resPros = await fetch(API_BASE + ENDPOINTSPRODUCTO.update.replace("{id}", idPros), {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  const result = await res.json();
+  const result = await resPros.json();
   alert(result.mensaje || "Actualizado");
   listarProductos();
   mostrarSeccion("listaPro");
 }
 
 async function eliminarProducto() {
-  const id = document.getElementById("idBuscarP").value;
-  const res = await fetch(API_BASE + ENDPOINTSPRODUCTO.delete.replace("{id}", id), {
+  const idProduct = document.getElementById("idBuscarP").value;
+  const res = await fetch(API_BASE + ENDPOINTSPRODUCTO.delete.replace("{id}", idProduct), {
     method: "DELETE",
   });
   const result = await res.json();

@@ -62,17 +62,17 @@
     <div id="accionesPro" class="seccion">
         <h2>Buscar / Actualizar / Eliminar</h2><!-- id, nombre, descripcion, precio, categoria -->
         <form id="formProductoAcciones">
-            <input type="number" name="idBuscarP" id="idBuscarP" placeholder="ID del producto">
+            <input type="number" name="idBuscar" id="idBuscarP" placeholder="ID del producto">
 
-            <button onclick="buscarProducto()" >Buscar</button>
+            <button onclick="buscarProducto()">Buscar</button><br>
 
-            <input type="text" id="nombre" name="nombre" placeholder="Nombre producto">
+            <br><input type="text" id="nombreAccion" name="nombre" placeholder="Nombre producto">
 
-            <textarea id="descripcion" name="descripcion" placeholder="Descripcion del producto"></textarea>
+            <textarea id="descripcionAccion" name="descripcion" placeholder="Descripcion del producto"></textarea>
 
-            <input type="float" name="precio" id="precio" placeholder="Precio producto" step="0.01">
+            <input type="float" name="precio" id="precioAccion" placeholder="Precio producto" step="0.01">
 
-            <input type="text" name="categoria" id="categoria" placeholder="Categoria del producto">
+            <input type="text" name="categoria" id="categoriaAccion" placeholder="Categoria del producto">
             
             <button onclick="actualizarProducto()">Actualizar</button>
 
