@@ -10,6 +10,9 @@
         <a href="#" onclick="mostrarSeccion('crear')">Crear Comentario</a>
         <a href="#" onclick="mostrarSeccion('lista')">Lista de Comentarios</a>
         <a href="#" onclick="mostrarSeccion('acciones')">Acciones</a>
+        <a href="#" onclick="mostrarSeccion('productos')">Productos</a>
+        <a href="#" onclick="mostrarSeccion('listaPro')">Lista de Productos</a>
+        <a href="#" onclick="mostrarSeccion('accionesPro')">Acciones</a>
     </div>
 
     <div id="crear" class="seccion">
@@ -37,6 +40,47 @@
         <button onclick="actualizarComentario()">Actualizar</button>
         <button onclick="eliminarComentario()">Eliminar</button>
     </div>
+
+    <div id="productos" class="seccion">
+        <h2>Crear un producto</h2> <!-- id, nombre, descripcion, precio, categoria -->
+        <form id="formProducto">
+            <input type="text" id="nombre" name="nombre" placeholder="Introduzca el nombre del producto">
+            
+            <textarea id="descripcion" name="descripcion" placeholder="Ingrese la descripción del producto"></textarea>
+            
+            <input type="float" id="precio" name="precio" placeholder="Ingrese un precio">
+            
+            <input type="text" id="categoria" name="categoria" placeholder="Ingrese la categoría del producto"> 
+            
+            <button type="submit">Crear</button>
+        </form>
+    </div>
+     <div id="listaPro" class="seccion">
+        <h2>Lista de Productos</h2>
+        <ul id="listaProductos"></ul>
+    </div>
+    <div id="accionesPro" class="seccion">
+        <h2>Buscar / Actualizar / Eliminar</h2><!-- id, nombre, descripcion, precio, categoria -->
+        <form id="formProductoAcciones">
+            <input type="number" name="idBuscarP" placeholder="ID del producto">
+
+            <button onclick="buscarProducto()">Buscar</button>
+
+            <input type="text" id="nombre" name="nombre" placeholder="Nombre producto">
+
+            <textarea id="descripcion" name="descripcion" placeholder="Descripcion del producto"></textarea>
+
+            <input type="number" name="precio" id="precio" placeholder="Precio producto" step="0.01">
+
+            <input type="text" name="categoria" id="categoria" placeholder="Categoria del producto">
+            
+            <button onclick="actualizarProducto()">Actualizar</button>
+
+            <button onclick="eliminarProducto()">Eliminar</button>
+        </form>
+
+    </div>
+
 
     <script src="config.js"></script>
     <script src="app.js"></script>

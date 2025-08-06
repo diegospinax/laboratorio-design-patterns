@@ -10,7 +10,7 @@
   "host": "localhost",
   "port": 5432,
   "user": "postgres",
-  "password": "1115",
+  "password": "1208",
   "database": "comentarios_db",
 
   "comentarios_service_url": "http://localhost:8000/comentarios",
