@@ -21,54 +21,51 @@ async function listarProductos() {
     listaP.appendChild(itemP);
   });
 }
-document.addEventListener("DOMContentLoaded", () => {
-  const formComentario = document.getElementById("formComentario")
-  if(formComentario){
-      formComentario.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        const body = {
-          texto: document.getElementById("texto").value,
-          usuario_email: document.getElementById("email").value,
-          calificacion: parseInt(document.getElementById("calificacion").value),
-        };
-        await fetch(API_BASE + ENDPOINTS.create, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        });
-        alert("Comentario creado.");
-        listarComentarios();
-        mostrarSeccion("lista");
-      });
-    }
 
-    const formProductElement = document.getElementById("formProducto");
-  if(formProductElement){
-      formProductElement.addEventListener("submit", async function (e) {
-        e.preventDefault();
+const formComentario = document.getElementById("formComentario");
 
-        const data = {
-          nombre: document.getElementById("nombre").value,
-          descripcion: document.getElementById("descripcion").value,
-          precio: Number(document.getElementById("precio").value),
-          categoria: document.getElementById("categoria").value,
-        };
+if (formComentario) {
+  formComentario.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const body = {
+      texto: document.getElementById("texto").value,
+      usuario_email: document.getElementById("email").value,
+      calificacion: parseInt(document.getElementById("calificacion").value),
+    };
+    await fetch(API_BASE + ENDPOINTS.create, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    alert("Comentario creado.");
+    listarComentarios();
+    mostrarSeccion("lista");
+  });
+}
 
-        await fetch(API_BASE + ENDPOINTSPRODUCTO.create, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
-        
-        alert("Producto creado.");
-        listarProductos() ;
-        mostrarSeccion("listaPro");
-      });
+const formProductElement = document.getElementById("formProducto");
+if (formProductElement) {
+  formProductElement.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-    } 
-});
+    const data = {
+      nombre: document.getElementById("nombre").value,
+      descripcion: document.getElementById("descripcion").value,
+      precio: Number(document.getElementById("precio").value),
+      categoria: document.getElementById("categoria").value,
+    };
 
+    await fetch(API_BASE + ENDPOINTSPRODUCTO.create, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
 
+    alert("Producto creado.");
+    listarProductos();
+    mostrarSeccion("listaPro");
+  });
+}
 
 async function buscarComentario() {
   const id = document.getElementById("idBuscar").value;
@@ -115,51 +112,85 @@ async function eliminarComentario() {
 }
 
 async function buscarProducto() {
-  const searchProductElement = document.getElementById("productIdInput").value;
+  const productId = parseInt(document.getElementById("productIdInput").value);
 
-  const response = await fetch(API_BASE + ENDPOINTSPRODUCTO.read_one.replace("{id}", searchProductElement));
+  const response = await fetch(
+    API_BASE + ENDPOINTSPRODUCTO.read_one.replace("{id}", productId)
+  );
 
   if (response.ok) {
     const data = await response.json();
-    document.getElementById("nombreAccion").value = data.nombre;
-    document.getElementById("descripcionAccion").value = data.descripcion;
-    document.getElementById("precioAccion").value = data.precio;
-    document.getElementById("categoriaAccion").value = data.categoria;
-    mostrarSeccion("accionesPro");
+    setProductDataFields(data);
+    mostrarSeccion("accionesProducto");
     alert("Producto con posibilidad de editar");
   } else {
     alert("Producto no encontrado.");
   }
 }
 
-  async function actualizarProducto() {
-  const inputElement = document.getElementById("productIdInput").value;
-  const data = {
-      nombre: document.getElementById("nombreAccion").value,
-      descripcion: document.getElementById("descripcionAccion").value,
-      precio: Number(document.getElementById("precioAccion").value),
-      categoria: document.getElementById("categoriaAccion").value,
-  };
-  const res = await fetch(API_BASE + ENDPOINTSPRODUCTO.update.replace("{id}", inputElement), {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+function setProductDataFields(data) {
+  document.getElementById("nombreAccion").value = data.nombre;
+  document.getElementById("descripcionAccion").value = data.descripcion;
+  document.getElementById("precioAccion").value = data.precio;
+  document.getElementById("categoriaAccion").value = data.categoria;
+}
+
+document
+  .getElementById("formProductoAcciones")
+  .addEventListener("submit", (event) => {
+    event.preventDefault();
+    actualizarProducto();
   });
+
+async function actualizarProducto() {
+  const productId = document.getElementById("productIdInput").value;
+  const data = buildData();
+  const res = await fetch(
+    API_BASE + ENDPOINTSPRODUCTO.update.replace("{id}", productId),
+    {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }
+  );
+
   const result = await res.json();
   alert(result.mensaje || "Actualizado");
   listarProductos();
+  resetProductForm();
   mostrarSeccion("listaPro");
 }
 
-async function eliminarProducto() {
-  const deleteProduct = document.getElementById("productIdInput").value;
-  const res = await fetch(API_BASE + ENDPOINTSPRODUCTO.delete.replace("{id}", deleteProduct), {
-    method: "DELETE",
-  });
+function buildData() {
+  return {
+    nombre: document.getElementById("nombreAccion").value,
+    descripcion: document.getElementById("descripcionAccion").value,
+    precio: Number(document.getElementById("precioAccion").value),
+    categoria: document.getElementById("categoriaAccion").value,
+  };
+}
+
+async function deleteProduct() {
+  const productId = document.getElementById("productIdInput").value;
+  const res = await fetch(
+    API_BASE + ENDPOINTSPRODUCTO.delete.replace("{id}", productId),
+    {
+      method: "DELETE",
+    }
+  );
   const results = await res.json();
   alert(results.mensaje || "Eliminado");
   listarProductos();
+  resetProductForm();
   mostrarSeccion("listaPro");
+}
+
+function resetProductForm() {
+  document.getElementById("productIdInput").value = "";
+  document.getElementById("nombreAccion").value = "";
+  document.getElementById("descripcionAccion").value = "";
+  document.getElementById("precioAccion").value = "";
+  document.getElementById("categoriaAccion").value = "";
 }
 
 function mostrarSeccion(id) {

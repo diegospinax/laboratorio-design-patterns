@@ -12,7 +12,7 @@
         <a href="#" onclick="mostrarSeccion('acciones')">Acciones</a>
         <a href="#" onclick="mostrarSeccion('productos')">Productos</a>
         <a href="#" onclick="mostrarSeccion('listaPro')">Lista de Productos</a>
-        <a href="#" onclick="mostrarSeccion('accionesPro')">Acciones</a>
+        <a href="#" onclick="mostrarSeccion('accionesProducto')">Acciones</a>
     </div>
 
     <div id="crear" class="seccion">
@@ -59,12 +59,12 @@
         <h2>Lista de Productos</h2>
         <ul id="listaProductos"></ul>
     </div>
-    <div id="accionesPro" class="seccion">
-        <h2>Buscar / Actualizar / Eliminar</h2><!-- id, nombre, descripcion, precio, categoria -->
+    <div id="accionesProducto" class="seccion">
+        <h2>Buscar / Actualizar / Eliminar</h2>
         <form id="formProductoAcciones">
             <input type="number" name="idBuscarP" id="productIdInput" placeholder="ID del producto">
 
-            <button onclick="buscarProducto()">Buscar</button>
+            <button type="button" onclick="buscarProducto()">Buscar</button>
             
             <br>
 
@@ -76,9 +76,9 @@
 
             <input type="text" name="categoria" id="categoriaAccion" placeholder="Categoria del producto">
             
-            <button onclick="actualizarProducto()">Actualizar</button>
+            <button>Actualizar</button>
 
-            <button onclick="eliminarProducto()">Eliminar</button>
+            <button type="button" onclick="deleteProduct()">Eliminar</button>
         </form>
 
     </div>
