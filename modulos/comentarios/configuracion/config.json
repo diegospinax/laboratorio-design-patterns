@@ -1,17 +1,17 @@
 {
-  "_db_engine": "mysql",
-  "_host": "localhost",
-  "_port": 3306,
-  "_user": "root",
-  "_password": "",
-  "_database": "comentarios_db",
-
-  "db_engine": "postgres",
+  "db_engine": "mysql",
   "host": "localhost",
-  "port": 5432,
-  "user": "postgres",
-  "password": "1208",
+  "port": 3306,
+  "user": "root",
+  "password": "",
   "database": "comentarios_db",
+
+  "_db_engine": "postgres",
+  "_host": "localhost",
+  "_port": 5432,
+  "_user": "postgres",
+  "_password": "1208",
+  "_database": "comentarios_db",
 
   "comentarios_service_url": "http://localhost:8000/comentarios",
   "notificaciones_service_url": "http://localhost:8000/notificaciones",

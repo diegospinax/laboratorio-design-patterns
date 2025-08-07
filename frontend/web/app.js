@@ -9,6 +9,7 @@ async function listarComentarios() {
     lista.appendChild(item);
   });
 }
+
 async function listarProductos() {
   const resP = await fetch(API_BASE + ENDPOINTSPRODUCTO.read_all);
   const dataPro = await resP.json();
@@ -20,25 +21,53 @@ async function listarProductos() {
     listaP.appendChild(itemP);
   });
 }
+document.addEventListener("DOMContentLoaded", () => {
+  const formComentario = document.getElementById("formComentario")
+  if(formComentario){
+      formComentario.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const body = {
+          texto: document.getElementById("texto").value,
+          usuario_email: document.getElementById("email").value,
+          calificacion: parseInt(document.getElementById("calificacion").value),
+        };
+        await fetch(API_BASE + ENDPOINTS.create, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        alert("Comentario creado.");
+        listarComentarios();
+        mostrarSeccion("lista");
+      });
+    }
 
-document
-  .getElementById("formComentario")
-  .addEventListener("submit", async function (e) {
-    e.preventDefault();
-    const body = {
-      texto: document.getElementById("texto").value,
-      usuario_email: document.getElementById("email").value,
-      calificacion: parseInt(document.getElementById("calificacion").value),
-    };
-    await fetch(API_BASE + ENDPOINTS.create, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-    alert("Comentario creado.");
-    listarComentarios();
-    mostrarSeccion("lista");
-  });
+    const formProductElement = document.getElementById("formProducto");
+  if(formProductElement){
+      formProductElement.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const data = {
+          nombre: document.getElementById("nombre").value,
+          descripcion: document.getElementById("descripcion").value,
+          precio: Number(document.getElementById("precio").value),
+          categoria: document.getElementById("categoria").value,
+        };
+
+        await fetch(API_BASE + ENDPOINTSPRODUCTO.create, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        
+        alert("Producto creado.");
+        listarProductos() ;
+        mostrarSeccion("listaPro");
+      });
+
+    } 
+});
+
 
 
 async function buscarComentario() {
@@ -85,34 +114,13 @@ async function eliminarComentario() {
   mostrarSeccion("lista");
 }
 
- const formProductElement = document.getElementById("formProducto");
-
-  formProductElement.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const data = {
-      nombre: document.getElementById("nombre").value,
-      descripcion: document.getElementById("descripcion").value,
-      precio: Number(document.getElementById("precio").value),
-      categoria: document.getElementById("categoria").value,
-    };
-
-    await fetch(API_BASE + ENDPOINTSPRODUCTO.create, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    
-    alert("Producto creado.");
-    listarProductos() ;
-    mostrarSeccion("listaPro");
-  });
-
 async function buscarProducto() {
-  const idP = document.getElementById("idBuscarP").value;
-  const res = await fetch(API_BASE + ENDPOINTSPRODUCTO.read_one.replace("{id}", idP));
-  if (res.ok) {
-    const data = await res.json();
+  const searchProductElement = document.getElementById("productIdInput").value;
+
+  const response = await fetch(API_BASE + ENDPOINTSPRODUCTO.read_one.replace("{id}", searchProductElement));
+
+  if (response.ok) {
+    const data = await response.json();
     document.getElementById("nombreAccion").value = data.nombre;
     document.getElementById("descripcionAccion").value = data.descripcion;
     document.getElementById("precioAccion").value = data.precio;
@@ -125,31 +133,31 @@ async function buscarProducto() {
 }
 
   async function actualizarProducto() {
-  const idPros = document.getElementById("idBuscarP").value;
+  const inputElement = document.getElementById("productIdInput").value;
   const data = {
       nombre: document.getElementById("nombreAccion").value,
       descripcion: document.getElementById("descripcionAccion").value,
       precio: Number(document.getElementById("precioAccion").value),
       categoria: document.getElementById("categoriaAccion").value,
   };
-  const resPros = await fetch(API_BASE + ENDPOINTSPRODUCTO.update.replace("{id}", idPros), {
+  const res = await fetch(API_BASE + ENDPOINTSPRODUCTO.update.replace("{id}", inputElement), {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  const result = await resPros.json();
+  const result = await res.json();
   alert(result.mensaje || "Actualizado");
   listarProductos();
   mostrarSeccion("listaPro");
 }
 
 async function eliminarProducto() {
-  const idProduct = document.getElementById("idBuscarP").value;
-  const res = await fetch(API_BASE + ENDPOINTSPRODUCTO.delete.replace("{id}", idProduct), {
+  const deleteProduct = document.getElementById("productIdInput").value;
+  const res = await fetch(API_BASE + ENDPOINTSPRODUCTO.delete.replace("{id}", deleteProduct), {
     method: "DELETE",
   });
-  const result = await res.json();
-  alert(result.mensaje || "Eliminado");
+  const results = await res.json();
+  alert(results.mensaje || "Eliminado");
   listarProductos();
   mostrarSeccion("listaPro");
 }
