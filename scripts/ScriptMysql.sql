@@ -20,3 +20,19 @@ CREATE TABLE IF NOT EXISTS productos (
     precio double not null, 
     categoria varchar(255) not null
 );
+
+CREATE TABLE IF NOT EXISTS usuarios (
+    id SERIAL PRIMARY KEY not null, 
+    username varchar(255) not null, 
+    email varchar(255) not null, 
+    password varchar(255) not null
+);
+
+CREATE TABLE IF NOT EXISTS favoritos (
+    id SERIAL PRIMARY KEY not null, 
+    producto_id bigint(20) unsigned not null, 
+    usuario_id bigint(20) unsigned not null, 
+
+    constraint fk_favorito_producto_id foreign key (producto_id) references productos(id),
+    constraint fk_favorito_usuario_id foreign key (usuario_id) references usuarios(id)
+);

@@ -3,7 +3,7 @@ from modulos.productos.acceso_datos.producto_dto import ProductoDTO
 from modulos.productos.acceso_datos.db_connection.connection import ConexionDB
 
 conn = ConexionDB().obtener_conexion()
-
+#el enmcargado de interactuar con la base de datos
 class ProductoDAOMySQL:
     def guardar(self, producto_dto: ProductoDTO):
         with conn.cursor() as cursor:

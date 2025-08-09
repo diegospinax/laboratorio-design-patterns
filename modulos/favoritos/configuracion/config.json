@@ -1,0 +1,29 @@
+{
+  "_db_engine": "mysql",
+  "_host": "localhost",
+  "_port": 3306,
+  "_user": "root",
+  "_password": "",
+  "_database": "comentarios_db",
+
+  "db_engine": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "user": "postgres",
+  "password": "1115",
+  "database": "comentarios_db",
+
+  "favoritos_service_url": "http://localhost:8000/favoritos",
+
+
+  "api_base": "http://localhost:8000",
+  "endpoints": {
+  "create": "/favoritos/create",
+  "read_all": "/favoritos",
+  "read_one": "/favoritos/{id}",
+  "update": "/favoritos/update/{id}",
+  "delete": "/favoritos/delete/{id}"}
+  
+
+}
+

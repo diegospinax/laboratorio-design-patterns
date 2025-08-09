@@ -1,0 +1,121 @@
+### Crear producto
+
+POST http://localhost:8000/productos/crear
+Content-Type: application/json
+
+{
+  "nombre": "Leche",
+  "descripcion": "Leche marca pollito.",
+  "precio": 2.5,
+  "categoria": "LACTEO"
+}
+
+### Obtener todos los productos
+GET http://localhost:8000/productos/
+
+### Obtener productos por ID
+GET http://localhost:8000/productos/3
+
+### Actualizar un producto
+PUT http://localhost:8000/productos/update/3
+Content-Type: application/json
+
+{
+  "nombre": "Leche2",
+  "descripcion": "Lacteo",
+  "precio": 11.5,
+  "categoria": "LACTEO"
+}
+ 
+### Eliminar un producto (si existe esta funcionalidad)
+DELETE http://localhost:8000/productos/delete/2
+
+### Crear un nuevo comentario
+POST http://localhost:8000/comentarios
+Content-Type: application/json
+
+{
+  "texto": "Excelente servicio",
+  "usuario_email": "usuario@example.com",
+  "calificacion": 5
+}
+
+### Obtener todos los comentarios
+GET http://localhost:8000/comentarios/
+
+### Obtener comentario por ID
+GET http://localhost:8000/comentarios/1
+
+### Actualizar un comentario
+PUT http://localhost:8000/comentarios/1
+Content-Type: application/json
+
+{
+  "texto": "Servicio actualizado",
+  "usuario_email": "usuario@example.com",
+  "calificacion": 3
+}
+
+### Eliminar un comentario (si existe esta funcionalidad)
+DELETE http://localhost:8000/comentarios/1
+
+
+### Crear Usuario
+
+POST http://localhost:8000/usuarios/crear
+Content-Type: application/json
+
+{
+  "username": "diego123",
+  "email": "a@mail.com",
+  "password": "12345"
+}
+
+### Obtener todos los usuarios
+GET http://localhost:8000/usuarios/
+
+### Obtener usuario por ID
+GET http://localhost:8000/usuarios/1
+
+### Actualizar un usuario
+PUT http://localhost:8000/usuarios/update/1
+Content-Type: application/json
+
+{
+  "username": "diego1234",
+  "email": "a@mail.com",
+  "password": "12345"
+}
+
+### Eliminar un usuario (si existe esta funcionalidad)
+DELETE http://localhost:8000/usuarios/delete/1
+
+
+
+### Crear favorito
+
+POST http://localhost:8000/favoritos/crear
+Content-Type: application/json
+
+{
+  "producto_id": 4,
+  "usuario_id": 1
+}
+
+### Obtener todos los favoritos
+GET http://localhost:8000/favoritos/
+
+### Obtener favorito por ID
+GET http://localhost:8000/favoritos/3
+
+### Actualizar un favorito
+PUT http://localhost:8000/favoritos/update/3
+Content-Type: application/json
+
+{
+  "producto_id": 4,
+  "usuario_id": 1,
+}
+
+### Eliminar un favorito (si existe esta funcionalidad)
+DELETE http://localhost:8000/favoritos/delete/3
